@@ -22,7 +22,7 @@ function CustomerDetails() {
           Home
         </a>
         <a href="/customer" className="btn btn-primary btn-lg">
-          Customer List
+          Customer List Hello
         </a>
       </div>
       <div>
