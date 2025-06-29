@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-// import "./CustomerList.css";
 
 function CustomerDetails() {
   const { id } = useParams();
@@ -22,7 +21,7 @@ function CustomerDetails() {
           Home
         </a>
         <a href="/customer" className="btn btn-primary btn-lg">
-          Customer List Hello
+          Customer List
         </a>
       </div>
       <div>

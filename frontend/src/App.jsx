@@ -7,6 +7,7 @@ import Home from "./views/Home";
 import CustomerDetails from "./components/CustomerDetails";
 import DeviceDetails from "./components/DeviceDetails";
 import OrderDetails from "./components/OrderDetails";
+import CustomerAddNew from "./components/CustomerAddNew";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/device/:id" element={<DeviceDetails />} />
       <Route path="/order" element={<OrderList />} />
       <Route path="/order/:id" element={<OrderDetails />} />
+      <Route path="/customer/add" element={<CustomerAddNew />} />
     </Routes>
   );
 }
