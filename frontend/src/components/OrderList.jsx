@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 function OrderList() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-  
-    const handleRowClick = (id) => {
-      navigate(`/order/${id}`);
-    };
 
   useEffect(() => {
     fetch("/api/order")
@@ -19,9 +15,12 @@ function OrderList() {
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="mb-4">
-        <a href="/" className="btn btn-primary btn-lg">
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate("/")}
+        >
           Home
-        </a>
+        </button>
       </div>
 
       <div className="mb-6">
@@ -39,15 +38,32 @@ function OrderList() {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr
-                key={order.id}
-                onClick={() => handleRowClick(order.id)}
-                style={{ cursor: "pointer" }}
-                className="hover:bg-base-300"
-              >
+              <tr key={order.id} className="hover:bg-base-300">
                 <th>{order.id}</th>
                 <td>{order.order_description}</td>
                 <td>{order.order_details}</td>
+                <td>
+                  <div className="flex flex-wrap justify-center gap-0.5">
+                    <button
+                      className="btn btn-primary btn-xs"
+                      onClick={() => navigate(`/order/${order.id}`)}
+                    >
+                      SHOW
+                    </button>
+                    <button
+                      className="btn btn-info btn-xs"
+                      // onClick={() => navigate(`/order/edit/${order.id}`)}
+                    >
+                      EDIT
+                    </button>
+                    <button
+                      className="btn btn-error btn-xs"
+                      // onClick={() => navigate(`/order/delete/${order.id}`)}
+                    >
+                      DELETE
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

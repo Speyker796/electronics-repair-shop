@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 function CustomerDetails() {
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/customer/${id}`)
@@ -12,17 +13,28 @@ function CustomerDetails() {
       .catch((error) => console.error("Błąd pobierania:", error));
   }, [id]);
 
+  const formatPhoneNumber = (number) => {
+    const digits = number.replace(/\D/g, "");
+    return digits.replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3");
+  };
+
   if (!customer) return <p>Loading customer details...</p>;
 
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="flex flex-wrap justify-center gap-4">
-        <a href="/" className="btn btn-primary btn-lg">
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate("/")}
+        >
           Home
-        </a>
-        <a href="/customer" className="btn btn-primary btn-lg">
+        </button>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate("/customer")}
+        >
           Customer List
-        </a>
+        </button>
       </div>
       <div>
         <h1>
@@ -32,7 +44,7 @@ function CustomerDetails() {
           <b>Address:</b> {customer.address}
         </h1>
         <h1>
-          <b>Phone number:</b> {customer.phone_number}
+          <b>Phone number:</b> {formatPhoneNumber(customer.phone_number)}
         </h1>
       </div>
     </div>

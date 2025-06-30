@@ -14,10 +14,6 @@ const CustomerEdit = () => {
   const [loading, setLoading] = useState(true);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const formatPhoneNumber = (number) => {
-    const digits = number.replace(/\D/g, "");
-    return digits.replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3");
-  };
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -54,11 +50,7 @@ const CustomerEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formattedPhone = formatPhoneNumber(formData.phone_number);
-    const updatedData = {
-      ...formData,
-      phone_number: formattedPhone,
-    };
+
 
     try {
       const res = await fetch(`http://localhost:8000/api/customer/${id}`, {
@@ -66,14 +58,15 @@ const CustomerEdit = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedData),
+
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) throw new Error("Failed to update customer");
 
       const data = await res.json();
       setResponseMessage(data.message || "Customer updated successfully");
-      
+
       // Go back to customer list
       navigate(`/customer`);
     } catch (error) {
@@ -139,8 +132,8 @@ const CustomerEdit = () => {
               required
               placeholder="Phone number"
               pattern="[0-9]*"
-              minlength="9"
-              maxlength="9"
+              minLength="9"
+              maxLength="9"
               title="Must be 9 digits"
               value={formData.phone_number}
               onChange={handleChange}

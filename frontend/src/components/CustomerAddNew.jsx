@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CustomerAddNew = () => {
   const [formData, setFormData] = useState({
@@ -8,10 +9,7 @@ const CustomerAddNew = () => {
     phone_number: "",
   });
 
-  const formatPhoneNumber = (number) => {
-    const digits = number.replace(/\D/g, "");
-    return digits.replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3");
-  };
+  const navigate = useNavigate();
 
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -26,11 +24,6 @@ const CustomerAddNew = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formattedPhone = formatPhoneNumber(formData.phone_number);
-    const updatedData = {
-      ...formData,
-      phone_number: formattedPhone,
-    };
 
     try {
       const res = await fetch("http://localhost:8000/api/customer", {
@@ -38,7 +31,8 @@ const CustomerAddNew = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedData),
+
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
@@ -59,9 +53,12 @@ const CustomerAddNew = () => {
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="flex flex-wrap justify-center gap-4 mb-8">
-        <a href="/" className="btn btn-primary btn-lg">
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate("/")}
+        >
           Home
-        </a>
+        </button>
       </div>
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         <form onSubmit={handleSubmit}>
@@ -109,8 +106,8 @@ const CustomerAddNew = () => {
               required
               placeholder="Phone number"
               pattern="[0-9]*"
-              minlength="9"
-              maxlength="9"
+              minLength="9"
+              maxLength="9"
               title="Must be 9 digits"
               value={formData.phone_number}
               onChange={handleChange}

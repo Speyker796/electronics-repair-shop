@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Eye, Pencil, PencilIcon, Trash2 } from "lucide-react";
 
 function CustomerList() {
   const [customers, setCustomers] = useState([]);
@@ -12,12 +13,20 @@ function CustomerList() {
       .catch((error) => console.error("Błąd pobierania:", error));
   }, []);
 
+  const formatPhoneNumber = (number) => {
+    const digits = number.replace(/\D/g, "");
+    return digits.replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3");
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="mb-4">
-        <a href="/" className="btn btn-primary btn-lg">
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => navigate("/")}
+        >
           Home
-        </a>
+        </button>
       </div>
 
       <div className="mb-6">
@@ -33,6 +42,7 @@ function CustomerList() {
               <th>Last Name</th>
               <th>Address</th>
               <th>Phone Number</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -40,34 +50,39 @@ function CustomerList() {
               <tr
                 key={customer.id}
                 // style={{ cursor: "pointer" }}
+                // onClick={() => navigate(`/customer/${customer.id}`)}
+                // style={{ cursor: "pointer" }}
                 className="hover:bg-base-300"
               >
                 <th>{customer.id}</th>
                 <td>{customer.first_name}</td>
                 <td>{customer.last_name}</td>
                 <td>{customer.address}</td>
-                <td>{customer.phone_number}</td>
+                <td>{formatPhoneNumber(customer.phone_number)}</td>
                 <td>
                   <div className="flex flex-wrap justify-center gap-0.5">
                     <button
-                      class="btn btn-primary btn-xs"
+                      className="btn btn-primary btn-sm group"
                       onClick={() => navigate(`/customer/${customer.id}`)}
+                      title="Show"
                     >
-                      SHOW
+                      <Eye className="w-4 h-4 stroke-white group-hover:stroke-black" />
                     </button>
                     <button
-                      className="btn btn-info btn-xs"
+                      className="btn btn-info btn-sm group"
                       onClick={() => navigate(`/customer/edit/${customer.id}`)}
+                      title="Edit"
                     >
-                      EDIT
+                      <Pencil className="w-4 h-4 stroke-white group-hover:stroke-black" />
                     </button>
                     <button
-                      class="btn btn-error btn-xs"
+                      className="btn btn-error btn-sm group"
                       onClick={() =>
                         navigate(`/customer/delete/${customer.id}`)
                       }
+                      title="Delete"
                     >
-                      DELETE
+                      <Trash2 className="w-4 h-4 stroke-white group-hover:stroke-black" />
                     </button>
                   </div>
                 </td>
