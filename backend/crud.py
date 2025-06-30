@@ -13,7 +13,7 @@ def get_customer(db: Session, customer_id: int):
     return customer
 
 def get_customers(db: Session):
-    customers = db.query(models.Customer).all()
+    customers = db.query(models.Customer).order_by(models.Customer.id).all()
     if not customers:
         raise HTTPException(status_code=404, detail="There are no customers in the database yet")
     return customers

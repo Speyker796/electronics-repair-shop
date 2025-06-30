@@ -5,10 +5,6 @@ function CustomerList() {
   const [customers, setCustomers] = useState([]);
   const navigate = useNavigate();
 
-  const handleRowClick = (id) => {
-    navigate(`/customer/${id}`);
-  };
-
   useEffect(() => {
     fetch("/api/customer")
       .then((response) => response.json())
@@ -43,8 +39,7 @@ function CustomerList() {
             {customers.map((customer) => (
               <tr
                 key={customer.id}
-                onClick={() => handleRowClick(customer.id)}
-                style={{ cursor: "pointer" }}
+                // style={{ cursor: "pointer" }}
                 className="hover:bg-base-300"
               >
                 <th>{customer.id}</th>
@@ -52,6 +47,30 @@ function CustomerList() {
                 <td>{customer.last_name}</td>
                 <td>{customer.address}</td>
                 <td>{customer.phone_number}</td>
+                <td>
+                  <div className="flex flex-wrap justify-center gap-0.5">
+                    <button
+                      class="btn btn-primary btn-xs"
+                      onClick={() => navigate(`/customer/${customer.id}`)}
+                    >
+                      SHOW
+                    </button>
+                    <button
+                      className="btn btn-info btn-xs"
+                      onClick={() => navigate(`/customer/edit/${customer.id}`)}
+                    >
+                      EDIT
+                    </button>
+                    <button
+                      class="btn btn-error btn-xs"
+                      onClick={() =>
+                        navigate(`/customer/delete/${customer.id}`)
+                      }
+                    >
+                      DELETE
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
