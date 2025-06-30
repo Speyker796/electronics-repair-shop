@@ -17,10 +17,10 @@ function OrderDetails() {
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="flex flex-wrap justify-center gap-4">
-        <a href="/" className="btn btn-info btn-lg">
+        <a href="/" className="btn btn-primary btn-lg">
           Home
         </a>
-        <a href="/order" className="btn btn-info btn-lg">
+        <a href="/order" className="btn btn-primary btn-lg">
           Order List
         </a>
       </div>

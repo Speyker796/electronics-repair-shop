@@ -19,7 +19,7 @@ function CustomerList() {
   return (
     <div className="max-w-5xl mx-auto p-4">
       <div className="mb-4">
-        <a href="/" className="btn btn-info btn-lg">
+        <a href="/" className="btn btn-primary btn-lg">
           Home
         </a>
       </div>
