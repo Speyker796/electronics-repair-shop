@@ -14,6 +14,12 @@ function Home() {
         >
           Add new customer
         </button>
+          <button
+          className="btn btn-outline btn-primary text-lg"
+          onClick={() => navigate("/device/add")}
+        >
+          Add new device
+        </button>
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         <button

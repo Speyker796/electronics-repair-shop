@@ -10,16 +10,16 @@ router = APIRouter(
     tags=["Device"]
 )
 
-@router.post("/", response_model=schemas.DeviceBase)
+@router.post("/", response_model=schemas.DeviceOut)
 def create_device(device: schemas.CreateDevice, db: Session = Depends(database.get_db)):
     return crud.create_device(db=db, device=device)
 
-@router.get("/{device_id}", response_model=schemas.DeviceBase)
+@router.get("/{device_id}", response_model=schemas.DeviceOut)
 def read_device(device_id: int, db: Session = Depends(database.get_db)):
     db_device = crud.get_device(db, device_id=device_id)
     return db_device
 
-@router.get("/", response_model=list[schemas.DeviceBase])
+@router.get("/", response_model=list[schemas.DeviceOut])
 def read_devices(db: Session = Depends(database.get_db)):
     devices = crud.get_devices(db)
     return devices
@@ -28,6 +28,6 @@ def read_devices(db: Session = Depends(database.get_db)):
 def delete_device(device_id: int, db: Session = Depends(database.get_db)):
     crud.delete_device(db, device_id=device_id)
 
-@router.put("/{device_id}", response_model=schemas.DeviceBase)
+@router.put("/{device_id}", response_model=schemas.DeviceOut)
 def update_device(device_id: int, device: schemas.CreateDevice, db: Session = Depends(database.get_db)):
     return crud.update_device(db=db, device_id=device_id, device=device)

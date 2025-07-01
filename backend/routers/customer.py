@@ -10,16 +10,16 @@ router = APIRouter(
     tags=["Customer"]
 )
 
-@router.post("/", response_model=schemas.CustomerBase)
+@router.post("/", response_model=schemas.CustomerOut)
 def create_customer(customer: schemas.CreateCustomer, db: Session = Depends(database.get_db)):
     return crud.create_customer(db=db, customer=customer)
 
-@router.get("/{customer_id}", response_model=schemas.CustomerBase)
+@router.get("/{customer_id}", response_model=schemas.CustomerOut)
 def read_customer(customer_id: int, db: Session = Depends(database.get_db)):
     db_customer = crud.get_customer(db, customer_id=customer_id)
     return db_customer
 
-@router.get("/", response_model=list[schemas.CustomerBase])
+@router.get("/", response_model=list[schemas.CustomerOut])
 def read_customers(db: Session = Depends(database.get_db)):
     customers = crud.get_customers(db)
     return customers
@@ -28,6 +28,6 @@ def read_customers(db: Session = Depends(database.get_db)):
 def delete_customer(customer_id: int, db: Session = Depends(database.get_db)):
     crud.delete_customer(db, customer_id=customer_id)
 
-@router.put("/{customer_id}", response_model=schemas.CustomerBase)
+@router.put("/{customer_id}", response_model=schemas.CustomerOut)
 def update_customer(customer_id: int, customer: schemas.CreateCustomer, db: Session = Depends(database.get_db)):
     return crud.update_customer(db=db, customer_id=customer_id, customer=customer)
