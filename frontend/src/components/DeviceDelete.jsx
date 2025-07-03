@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function CustomerDelete() {
+export default function DeviceDelete() {
   const { id } = useParams();
   const navigate = useNavigate();
   const confirmedRef = useRef(false);
@@ -11,16 +11,16 @@ export default function CustomerDelete() {
     if (confirmedRef.current) return;
     const confirmAndDelete = async () => {
       const confirmed = window.confirm(
-        "Are you sure you want to delete that customer?"
+        "Are you sure you want to delete that device?"
       );
       if (!confirmed) {
-        navigate("/customer");
+        navigate("/device");
         return;
       }
       confirmedRef.current = true;
 
       try {
-        await fetch(`http://localhost:8000/api/customer/${id}`, {
+        await fetch(`http://localhost:8000/api/device/${id}`, {
           method: "DELETE",
         });
         setStatus("success");
@@ -28,8 +28,8 @@ export default function CustomerDelete() {
         // navigate("/deleted-successfully");
       } catch (err) {
         console.error(err);
-        alert("Error occured while trying to delete customer");
-        navigate("/customer");
+        alert("Error occured while trying to delete device");
+        navigate("/device");
       }
     };
 
@@ -59,9 +59,9 @@ export default function CustomerDelete() {
           </button>
           <button
             className="btn btn-primary btn-lg"
-            onClick={() => navigate("/customer")}
+            onClick={() => navigate("/device")}
           >
-            Customer List
+            Device List
           </button>
         </div>
       </div>

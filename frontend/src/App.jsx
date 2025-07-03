@@ -12,6 +12,7 @@ import CustomerDelete from "./components/CustomerDelete";
 import CustomerEdit from "./components/CustomerEdit";
 import DeviceAddNew from "./components/DeviceAddNew.jsx";
 import ErrorNotFound from "./components/ErrorNotFound.jsx";
+import DeviceDelete from "./components/DeviceDelete.jsx";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/device" element={<DeviceList/>}/>
             <Route path="/device/:id" element={<DeviceDetails/>}/>
             <Route path="/device/add" element={<DeviceAddNew/>}/>
+            <Route path="/device/delete/:id" element={<DeviceDelete/>}/>
             <Route path="/order" element={<OrderList/>}/>
             <Route path="/order/:id" element={<OrderDetails/>}/>
             <Route path="/404" element={<ErrorNotFound />} />

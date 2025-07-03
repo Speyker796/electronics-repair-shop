@@ -36,7 +36,7 @@ function DeviceList() {
               <th>Manufacturer</th>
               <th>Model</th>
               <th>Serial Number</th>
-              <th>Customer ID</th>
+              <th>Owner</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +47,7 @@ function DeviceList() {
                 <td>{device.manufacturer}</td>
                 <td>{device.device_model}</td>
                 <td>{device.serial_number}</td>
-                {/*<td>{device.owner.id}</td>*/}
+                <td>{device.owner.first_name} {device.owner.last_name}</td>
                 <td>
                   <div className="flex flex-wrap justify-center gap-0.5">
                     <button
@@ -64,7 +64,7 @@ function DeviceList() {
                     </button>
                     <button
                       className="btn btn-error btn-xs"
-                      // onClick={() => navigate(`/device/delete/${device.id}`)}
+                      onClick={() => navigate(`/device/delete/${device.id}`)}
                     >
                       DELETE
                     </button>

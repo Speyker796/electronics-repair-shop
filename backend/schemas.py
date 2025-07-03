@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
 
 
 class CustomerBase(BaseModel):
@@ -7,6 +7,19 @@ class CustomerBase(BaseModel):
     last_name: Optional[str]
     address: Optional[str]
     phone_number: Optional[str]
+
+
+class DeviceBase(BaseModel):
+    id: Optional[int]
+    device_type: Optional[str]
+    manufacturer: Optional[str]
+    device_model: Optional[str]
+    serial_number: Optional[str]
+
+
+class OrderBase(BaseModel):
+    order_description: Optional[str]
+    order_details: Optional[str]
 
 
 class CreateCustomer(CustomerBase):
@@ -25,16 +38,10 @@ class CustomerOut(CustomerBase):
     last_name: str
     address: str
     phone_number: str
+    devices: Optional[List[DeviceBase]]
 
     class Config:
         from_attributes = True
-
-
-class DeviceBase(BaseModel):
-    device_type: Optional[str]
-    manufacturer: Optional[str]
-    device_model: Optional[str]
-    serial_number: Optional[str]
 
 
 class CreateDevice(DeviceBase):
@@ -58,11 +65,6 @@ class DeviceOut(DeviceBase):
 
     class Config:
         from_attributes = True
-
-
-class OrderBase(BaseModel):
-    order_description: Optional[str]
-    order_details: Optional[str]
 
 
 class CreateOrder(OrderBase):
