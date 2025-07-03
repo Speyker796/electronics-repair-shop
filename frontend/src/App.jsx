@@ -11,6 +11,7 @@ import CustomerAddNew from "./components/CustomerAddNew";
 import CustomerDelete from "./components/CustomerDelete";
 import CustomerEdit from "./components/CustomerEdit";
 import DeviceAddNew from "./components/DeviceAddNew.jsx";
+import ErrorNotFound from "./components/ErrorNotFound.jsx";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/device/add" element={<DeviceAddNew/>}/>
             <Route path="/order" element={<OrderList/>}/>
             <Route path="/order/:id" element={<OrderDetails/>}/>
+            <Route path="/404" element={<ErrorNotFound />} />
 
         </Routes>
     );

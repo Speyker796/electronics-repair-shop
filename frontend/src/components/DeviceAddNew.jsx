@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 const DeviceAddNew = () => {
     const [formData, setFormData] = useState({
-        device_type: "", manufacturer: "", device_model: "", serial_number: "",
+        device_type: "", manufacturer: "", device_model: "", serial_number: "", customer_id: "",
     });
 
     const navigate = useNavigate();
@@ -30,11 +30,25 @@ const DeviceAddNew = () => {
                 body: JSON.stringify(formData),
             });
 
+            if (!res.ok) {
+                if (res.status === 404) {
+                    // Obsługa błędu 404
+                    console.error("Błąd 404: Nie znaleziono zasobu");
+                    navigate("/404")
+                    // Możesz np. przekierować lub ustawić stan błędu
+                } else {
+                    // Inne błędy
+                    const errorData = await res.json();
+                    console.error("Inny błąd:", errorData.detail || res.statusText);
+                }
+                return; // Zatrzymaj dalsze działanie
+            }
+
             const data = await res.json();
             setResponseMessage(data.message || "Added a new device!");
 
             setFormData({
-                device_type: "", manufacturer: "", device_model: "", serial_number: "",
+                device_type: "", manufacturer: "", device_model: "", serial_number: "", customer_id: ""
             });
         } catch (error) {
             console.error("Error occured while trying to add new device:", error);
@@ -97,6 +111,16 @@ const DeviceAddNew = () => {
                         required
                         placeholder="Serial number"
                         value={formData.serial_number}
+                        onChange={handleChange}
+                    />
+                    <label className="label">Customer ID</label>
+                    <input
+                        type="number"
+                        className="input customer-id"
+                        name="customer_id"
+                        required
+                        placeholder="Customer ID"
+                        value={formData.customer_id}
                         onChange={handleChange}
                     />
 

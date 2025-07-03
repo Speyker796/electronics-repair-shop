@@ -42,7 +42,7 @@ class CreateDevice(DeviceBase):
     manufacturer: str
     device_model: str
     serial_number: str
-    customer_id: Optional[int] = None
+    customer_id: int
 
     # class Config:
     #     from_attributes = True
@@ -54,7 +54,7 @@ class DeviceOut(DeviceBase):
     manufacturer: str
     device_model: str
     serial_number: str
-    customer_id: Optional[int]
+    owner: Optional[CustomerOut]
 
     class Config:
         from_attributes = True

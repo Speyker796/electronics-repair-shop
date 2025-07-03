@@ -36,6 +36,7 @@ function DeviceList() {
               <th>Manufacturer</th>
               <th>Model</th>
               <th>Serial Number</th>
+              <th>Customer ID</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +47,7 @@ function DeviceList() {
                 <td>{device.manufacturer}</td>
                 <td>{device.device_model}</td>
                 <td>{device.serial_number}</td>
+                {/*<td>{device.owner.id}</td>*/}
                 <td>
                   <div className="flex flex-wrap justify-center gap-0.5">
                     <button

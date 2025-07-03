@@ -44,6 +44,9 @@ function DeviceDetails() {
         <h1>
           <b>Serial number:</b> {device.serial_number}
         </h1>
+        <h1>
+          <b>Owner:</b> {device.owner.first_name}
+        </h1>
       </div>
     </div>
   );
