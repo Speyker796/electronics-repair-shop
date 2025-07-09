@@ -10,7 +10,7 @@ import schemas
 # CRUD KLIENT
 def get_customer(db: Session, customer_id: int):
     customer = db.query(models.Customer).filter(models.Customer.id == customer_id).first()
-    if customer is None:
+    if not customer:
         raise HTTPException(status_code=404, detail="There is no such customer in the database")
     return customer
 
@@ -55,7 +55,7 @@ def update_customer(db: Session, customer_id: int, customer: schemas.CreateCusto
 # CRUD URZADZENIE
 def get_device(db: Session, device_id: int):
     device = db.query(models.Device).filter(models.Device.id == device_id).first()
-    if device is None:
+    if not device:
         raise HTTPException(status_code=404, detail="There is no such device in the database")
     return device
 
@@ -105,13 +105,13 @@ def update_device(db: Session, device_id: int, device: schemas.CreateDevice):
 # CRUD ZLECENIA
 def get_order(db: Session, order_id: int):
     order = db.query(models.Order).filter(models.Order.id == order_id).first()
-    if order is None:
+    if not order:
         raise HTTPException(status_code=404, detail="There is no such order in the database")
     return order
 
 
 def get_orders(db: Session):
-    orders = db.query(models.Order).all()
+    orders = db.query(models.Order).order_by(models.Order.created_at).all()
     if not orders:
         raise HTTPException(status_code=404, detail="There are no orders in the database")
     return orders

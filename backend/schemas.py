@@ -1,4 +1,8 @@
-from pydantic import BaseModel
+from __future__ import annotations
+
+from datetime import datetime
+
+from pydantic import BaseModel, computed_field
 from typing import List, Optional
 
 
@@ -10,7 +14,6 @@ class CustomerBase(BaseModel):
 
 
 class DeviceBase(BaseModel):
-    id: Optional[int]
     device_type: Optional[str]
     manufacturer: Optional[str]
     device_model: Optional[str]
@@ -38,7 +41,18 @@ class CustomerOut(CustomerBase):
     last_name: str
     address: str
     phone_number: str
-    devices: Optional[List[DeviceBase]]
+
+    class Config:
+        from_attributes = True
+
+
+class CustomerOutWithDevices(CustomerBase):
+    id: int
+    first_name: str
+    last_name: str
+    address: str
+    phone_number: str
+    devices: Optional[List[DeviceOut]]
 
     class Config:
         from_attributes = True
@@ -56,6 +70,17 @@ class CreateDevice(DeviceBase):
 
 
 class DeviceOut(DeviceBase):
+    id: int
+    device_type: str
+    manufacturer: str
+    device_model: str
+    serial_number: str
+
+    class Config:
+        from_attributes = True
+
+
+class DeviceOutWithOwner(DeviceBase):
     id: int
     device_type: str
     manufacturer: str
@@ -83,6 +108,13 @@ class OrderOut(OrderBase):
     order_details: str
     customer_id: Optional[int]
     device_id: Optional[int]
+    created_at: Optional[datetime]
+
+    # @computed_field
+    # def created_at_str(self) -> Optional[str]:
+    #     if self.created_at:
+    #         return self.created_at.strftime('%Y-%m-%d %H:%M')
+    #     return None
 
     class Config:
         from_attributes = True

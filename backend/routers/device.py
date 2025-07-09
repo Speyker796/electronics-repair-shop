@@ -14,12 +14,12 @@ router = APIRouter(
 def create_device(device: schemas.CreateDevice, db: Session = Depends(database.get_db)):
     return crud.create_device(db=db, device=device)
 
-@router.get("/{device_id}", response_model=schemas.DeviceOut)
+@router.get("/{device_id}", response_model=schemas.DeviceOutWithOwner)
 def read_device(device_id: int, db: Session = Depends(database.get_db)):
     db_device = crud.get_device(db, device_id=device_id)
     return db_device
 
-@router.get("/", response_model=list[schemas.DeviceOut])
+@router.get("/", response_model=list[schemas.DeviceOutWithOwner])
 def read_devices(db: Session = Depends(database.get_db)):
     devices = crud.get_devices(db)
     return devices

@@ -42,7 +42,7 @@ function CustomerList() {
               <th>Last Name</th>
               <th>Address</th>
               <th>Phone Number</th>
-              <th>Action</th>
+              {/*<th>Action</th>*/}
             </tr>
           </thead>
           <tbody>
