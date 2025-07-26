@@ -10,7 +10,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-# Tworzenie struktury tabeli na nowo (usuwa i ponownie tworzy tabele)
 # Base.metadata.drop_all(bind=engine)
 # Base.metadata.create_all(bind=engine)
 

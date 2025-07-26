@@ -15,12 +15,12 @@ def create_order(order: schemas.CreateOrder, db: Session = Depends(database.get_
     return crud.create_order(db=db, order=order)
 
 @router.get("/{order_id}", response_model=schemas.OrderOut)
-def read_order(order_id: int, db: Session = Depends(database.get_db)):
+def get_order(order_id: int, db: Session = Depends(database.get_db)):
     db_order = crud.get_order(db, order_id=order_id)
     return db_order
 
 @router.get("/", response_model=list[schemas.OrderOut])
-def read_orders(db: Session = Depends(database.get_db)):
+def get_orders(db: Session = Depends(database.get_db)):
     orders = crud.get_orders(db)
     return orders
 
